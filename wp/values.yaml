@@ -1,0 +1,31 @@
+service:
+ name: wp-svc
+ type: LoadBalancer
+deploy:
+  name: wp-deploy
+  labels:
+   app: wordpress
+   tier: frontend
+  strategyType: Recreate
+  containers:
+   image: wordpress:latest
+   containerName: wp-container
+  envHost: WORDPRESS_DB_HOST
+  envPass: WORDPRESS_DB_PASSWORD
+  key: password
+  port: 80
+  storageName: wp-storage
+  mountPath: /var/www/html
+  svcDb: mysql-svc
+pv:
+  name: pv-wp
+  storageClassName: standard
+  namespace: default
+  pvcname: pvc-wp
+  storage: 1Gi
+  accessModes: ReadWriteMany
+  path: "/mnt/c/Users/a.kapytnik/kubernetes/Charts/data/wp"
+ingress:
+ name: wp-ingress  
+secret:
+  name: my-sql-pass

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.deploy.labels.app }}
+      tier: {{ .Values.deploy.labels.tier }}
+  strategy:
+    type: {{ .Values.deploy.strategyType }}
+  template:
+    metadata:
+     labels:
+      app: {{ .Values.deploy.labels.app }}
+      tier: {{ .Values.deploy.labels.tier }}
+    spec:      
+      containers:
+      - image: {{ .Values.deploy.containers.image }}
+        name: {{ .Values.deploy.containers.containerName }}
+        env:
+        - name: {{ .Values.deploy.envName }}
+          valueFrom:
+            secretKeyRef:
+             name: {{ .Values.secret.name }}
+             key: {{ .Values.deploy.key }}
+        ports:
+        - containerPort: {{ .Values.deploy.port }}
+        volumeMounts:
+        - name: {{ .Values.deploy.storageName }}
+          mountPath: {{ .Values.deploy.mountPath }}
+      volumes:
+      - name: {{ .Values.deploy.storageName }}
+        persistentVolumeClaim:
+         claimName: {{ .Values.pv.pvcname }}
+        

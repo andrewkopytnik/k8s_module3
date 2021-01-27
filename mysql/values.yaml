@@ -1,0 +1,30 @@
+service:
+ name: mysql-svc
+ type: ClusterIP
+deploy:
+  name: mysql-deploy
+  labels:
+   app: wordpress
+   tier: mysql
+  strategyType: Recreate
+  containers:
+   image: mysql:5.6
+   containerName: mysql-container
+  envName: MYSQL_ROOT_PASSWORD
+  key: password
+  port: 3306
+  storageName: sql-storage
+  mountPath: /var/lib/mysql
+pv:
+  name: pv-sql
+  storageClassName: standard
+  namespace: default
+  pvcname: pvc-sql
+  storage: 1Gi
+  accessModes: ReadWriteMany
+  path: "/mnt/c/Users/a.kapytnik/kubernetes/Charts/data/mysql"
+pvc:  
+secret:
+  name: my-sql-pass
+  type: Opaque
+  password: YWRtaW4=
