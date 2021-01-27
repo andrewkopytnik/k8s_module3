@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  mysql:
+  - apiVersion: v1
+    appVersion: "1"
+    created: "2021-01-27T13:21:10.9172395+03:00"
+    description: My custom sql chart
+    digest: 24be70a7c932932b811eb278b857fb9c7430f57d21d0ac79a61ce6a68b82209f
+    name: mysql
+    urls:
+    - https://andrewkopytnik.github.io/k8s_module3/deploy/mysql-0.1.0.tgz
+    version: 0.1.0
+  wp:
+  - apiVersion: v1
+    appVersion: "1"
+    created: "2021-01-27T13:21:10.9177965+03:00"
+    description: My custom wp chart
+    digest: a3d0bdca7e23eb6536c976c1908ae41d70adddad37bbae28f96b786b6ac3b612
+    name: wp
+    urls:
+    - https://andrewkopytnik.github.io/k8s_module3/deploy/wp-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-01-27T13:21:10.9164752+03:00"
